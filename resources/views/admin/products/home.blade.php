@@ -38,7 +38,7 @@
                                 Title
                             </th>
                             <th>
-                                Price
+                                Position
                             </th>
                             <th>
                                 On Sale
@@ -66,7 +66,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                   $ {{ $product->price }}
+                                    <input type="text" class="form-control postion-input" value="{{ $product->position }}" data-id="{{ $product->id }}" readonly>
                                 </td>
                                 <td>
                                     @if($product->is_on_sale)
@@ -98,4 +98,41 @@
     </div>
 </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+
+        $('.postion-input').on('click', function(){
+            $(this).removeAttr("readonly");
+            console.log('ok');
+
+        })
+
+        $('.postion-input').on('change', function(){
+            $(this).attr("readonly", true);
+            console.log('its ok');
+            var product_id = $(this).data('id');
+            var token = "{{ csrf_token() }}";
+            var position = $(this).val();
+            console.log(position);
+            console.log(token);
+            console.log(product_id);
+            $.ajax({
+                type: "PATCH",
+                url: "/admin/products/position/" + product_id,
+                data: {
+                    _token : token,
+                    position: position
+                },
+                success:function(data){
+                    console.log(data);
+                },
+                error:function(err){
+                    console.log('err');
+                    console.log(err);
+                }
+            })
+        })
+    </script>
 @endsection

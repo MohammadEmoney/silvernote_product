@@ -15,7 +15,7 @@ class AddFieldToProductsTable extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->boolean('add_to_home')->default(0)->after('gallery');
-            $table->integer('position')->nullable()->unique()->after('add_to_home');
+            $table->integer('position')->default(1)->after('add_to_home');
         });
     }
 

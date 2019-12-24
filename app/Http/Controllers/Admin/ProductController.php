@@ -97,4 +97,10 @@ class ProductController extends Controller
         $product->update(['add_to_home' => $status]);
         return response()->json( $product );
     }
+
+    public function updatePosition(Request $request, Product $product)
+    {
+        $product->update(['position' => (int)$request->position]);
+        return response()->json( $product );
+    }
 }

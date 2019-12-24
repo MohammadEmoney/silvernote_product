@@ -11,8 +11,8 @@ class HomeController extends Controller
 {
     public function home()
     {
-        $products = Product::orderBy('id', 'DESC')->take(6)->get()->chunk(3);
-        // dd($products[0]);
+        $products = Product::homeProducts();
+        // dd($products);
         return view('front.home', compact('products'));
     }
 }

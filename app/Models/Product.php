@@ -31,6 +31,6 @@ class Product extends Model
      */
     public static function homeProducts()
     {
-        return self::where('add_to_home', true)->get();
+        return self::where('add_to_home', true)->orderBy('position', 'DESC')->get();
     }
 }

@@ -16,6 +16,7 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->group(function (
     Route::get('products/add-to-home', 'ProductController@addToHome')->name('products.home');
     Route::resource('products', 'ProductController');
     Route::patch('products/add-to-home/{product}', 'ProductController@updateAddToHome')->name('products.home.update');
+    Route::patch('products/position/{product}', 'ProductController@updatePosition')->name('products.position.update');
     Route::resource('categories', 'CategoryController');
 });
 
