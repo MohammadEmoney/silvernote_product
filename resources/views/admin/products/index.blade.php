@@ -55,7 +55,7 @@
                                         <div class="tooltiptext">
                                             <ul>
                                                 <li>{{ $product->user->name }}</li>
-                                                <li>{{ $product->created_at }}</li>
+                                                <li>{{ \Carbon\Carbon::parse( $product->created_at )->diffForHumans() }}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group flex-row-reverse" role="group" aria-label="Basic example">
-                                        <button type="button" class="btn btn-primary">
+                                        <button type="button" class="btn btn-primary delete" data-id="{{ $product->id }}">
                                         <i class="mdi mdi-delete"></i>
                                         </button>
                                         <a href="{{ route('products.edit', $product->id) }}" type="button" class="btn btn-primary">
@@ -104,11 +104,33 @@
 
 @section('scripts')
     <script>
+        var token = "{{ csrf_token() }}";
+
+        $('.delete').on('click', function(){
+            let $this = $(this);
+            let thisRow = $(this).parent().parent().parent()
+            let product_id = $this.data("id")
+
+            $.ajax({
+                url: "/admin/products/"+ product_id,
+                type: "POST",
+                data: {
+                    _token : token,
+                    _method: "DELETE"
+                },
+                success:function(){
+                    thisRow.fadeOut();
+                },
+                error:function(error){
+                    console.log(error);
+                }
+            })
+        })
+
         $('.add_to_home').on('click', function(){
-            var $this = $(this);
-            var checkbox = $this.prop("checked")
-            var product_id = $this.data("id")
-            var token = "{{ csrf_token() }}"
+            let $this = $(this);
+            let checkbox = $this.prop("checked")
+            let product_id = $this.data("id")
 
             $.ajax({
                 type:'PATCH',

@@ -1,192 +1,166 @@
 @extends('layouts.front')
 
 @section('intro')
-    <section class="box-intro">
-            <div class="table-cell">
-                <h1 class="box-headline letters rotate-2">
-                    <span class="box-words-wrapper">
-                        <b class="is-visible">design.</b>
-                        <b>&nbsp;coding.</b>
-                        <b>graphic.</b>
-                    </span>
-		        </h1>
-                <h5>everything you need to build your personal portfolio</h5>
+<div id="video-container">
+    <div class="video-overlay"></div>
+    <div class="video-content">
+        <div class="inner">
+          <h1>Welcome to <em>Corazon PSD</em></h1>
+          <p>Best PSD Templates and Adobe's Products</p>
+          <p>Glorious and magnificent work by best desinger in the world</p>
+            <div class="scroll-icon">
+                <a class="scrollTo" data-scrollTo="portfolio" href="#"><img src="{{ asset('front/img/scroll-icon.png') }}" alt=""></a>
             </div>
-
-            <div class="mouse">
-                <div class="scroll"></div>
-            </div>
-        </section>
+        </div>
+    </div>
+    <video autoplay="" loop="" muted>
+        <source src="{{ asset('front/highway-loop.mp4') }}" type="video/mp4" />
+    </video>
+</div>
 @endsection
 
 @section('content')
 
-<div class="portfolio-div">
-    <div class="portfolio">
-        <div class="no-padding portfolio_container">
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6  fashion logo">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[0]->image }}" alt="{{ $products[0]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[0]->title }}</span>
-                                <em>{{ $products[0]->category->name }}</em>
+<div class="full-screen-portfolio" id="portfolio">
+    <div class="container-fluid">
+        @foreach($products as $product)
+            <div class="col-md-4 col-sm-6">
+                <div class="portfolio-item">
+                    <a href="{{ $product->image }}" data-lightbox="image-1"><div class="thumb">
+                        <div class="hover-effect">
+                            <div class="hover-content">
+                                <h1>{{ $product->category->name }}</h1>
+                                <a href="{{ route('item.show', $product->id) }}"><p>{{ $product->title }}</p></a>
                             </div>
                         </div>
-                    </div>
-                </a>
+                        <div class="image">
+                            <img src="{{ $product->image }}">
+                        </div>
+                    </div></a>
+                </div>
             </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 ads graphics">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[1]->image }}" alt="{{ $products[1]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[1]->title }}</span>
-                                <em>{{ $products[1]->category->name }}</em>
-                            </div>
+        @endforeach
+        {{-- <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_2.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>raclette <em>taxidermy</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
                         </div>
                     </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-6 col-sm-12 photography">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[2]->image }}" alt="{{ $products[2]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[2]->title }}</span>
-                                <em>{{ $products[2]->category->name }}</em>
-                            </div>
-                        </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_2.png') }}">
                     </div>
-                </a>
+                </div></a>
             </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 fashion ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[3]->image }}" alt="{{ $products[3]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[3]->title }}</span>
-                                <em>{{ $products[3]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 graphics ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[4]->image }}" alt="{{ $products[4]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[4]->title }}</span>
-                                <em>{{ $products[4]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-6 col-sm-12 photography">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[5]->image }}" alt="{{ $products[5]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[5]->title }}</span>
-                                <em>{{ $products[5]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 graphics ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[6]->image }}" alt="{{ $products[6]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[6]->title }}</span>
-                                <em>{{ $products[6]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 graphics ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[7]->image }}" alt="{{ $products[7]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[7]->title }}</span>
-                                <em>{{ $products[7]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 graphics ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[8]->image }}" alt="{{ $products[8]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[8]->title }}</span>
-                                <em>{{ $products[8]->category->name }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
-
-            <!-- single work -->
-            <div class="col-md-3 col-sm-6 graphics ads">
-                <a href="single-project.html" class="portfolio_item">
-                    <img src="{{ $products[9]->image }}" alt="{{ $products[9]->title }}" class="img-responsive" />
-                    <div class="portfolio_item_hover">
-                        <div class="portfolio-border clearfix">
-                            <div class="item_info">
-                                <span>{{ $products[9]->title }}</span>
-                                <em>{{ $products[9]->category->title }}</em>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <!-- end single work -->
         </div>
-        <!-- end portfolio_container -->
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_3.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>humblebrag <em>brunch</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_3.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_1.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>Succulents <em>chambray</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_1.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_5.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>freegan <em>aesthetic</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_5.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_6.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>taiyaki <em>vegan</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_6.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_7.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>Thundercats <em>santo</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_7.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_8.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>wayfarers <em>yuccie</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_8.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+            <div class="portfolio-item">
+                <a href="{{ asset('front/img/big_portfolio_item_9.png') }}" data-lightbox="image-1"><div class="thumb">
+                    <div class="hover-effect">
+                        <div class="hover-content">
+                            <h1>disrupt <em>street</em></h1>
+                            <p>Awesome Subtittle Goes Here</p>
+                        </div>
+                    </div>
+                    <div class="image">
+                        <img src="{{ asset('front/img/portfolio_item_9.png') }}">
+                    </div>
+                </div></a>
+            </div>
+        </div> --}}
     </div>
-    <!-- portfolio -->
 </div>
+
 @endsection

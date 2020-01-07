@@ -2,7 +2,29 @@
 
 namespace App\Http\Traits;
 
+use Illuminate\Support\Str;
+use Zip;
+use File;
+use Image;
+use ZipArchive;
+
 trait Uploads {
+
+    /**
+     * Create path for saving files.
+     *
+     * @param string $folder
+     * @param string $type
+     *
+     * @return string
+     */
+    public function createPath($folder, $type)
+    {
+        $folder = explode("\\", $folder);
+        $date = date('Ymdhms');
+        return  "/uploads/$type/" . end($folder) . "/$date/";
+    }
+
 
     /**
      * Upload image for any kind of object.
@@ -11,12 +33,48 @@ trait Uploads {
      * @param string $folder
      * @return string path of image
      */
-    public function UploadImage($file, $folder)
+    public function uploadImage($file, $folder, $crop = "")
     {
-        $fileName = str_random(30) . "." . $file->getClientOriginalExtension();
-        $path = public_path("/uploads/$folder/");
-        $file->move($path, $fileName);
-        return "/uploads/$folder/" . $fileName;
+        $uploadPath = $this->createPath($folder, "image");
+        $fileName = Str::random(30) . "." . $file->getClientOriginalExtension();
+        $path = public_path(ltrim($uploadPath , '/' ));
+        // dd($crop);
+        if(!is_null($crop) && $crop !== ""){
+            $crop = explode("," , $crop);
+            $img = Image::make($file);
+            $img->crop((int)$crop[2], (int)$crop[3], (int)$crop[0], (int)$crop[1]);
+            // dd($img);
+            if (!file_exists($path)) {
+                mkdir($path, 666, true);
+            }
+            $img->save($path . $fileName);
+        }else{
+            $file->move($path , $fileName);
+        }
+
+        return $uploadPath . $fileName;
+    }
+
+    /**
+     * Upload image for any kind of object.
+     *
+     * @param File $file
+     * @param string $folder
+     * @return array path of image
+     */
+    public function uploadGallery($file, $folder)
+    {
+        $output = [];
+        $uploadPath = $this->createPath($folder, "gallery");
+
+        foreach($file as $img){
+            $fileName = Str::random(30) . "." . $img->getClientOriginalExtension();
+            $path = public_path($uploadPath);
+            $img->move($path, $fileName);
+            $output[] = $uploadPath . $fileName;
+        }
+
+        return $output;
     }
 
     /**
@@ -27,54 +85,45 @@ trait Uploads {
      *
      * @return bool|string
      */
-    public function uploadeFile($file, $className)
+    public function uploadeFilesAndZip($files, $folder)
     {
-        $className = str_replace("\\", "/", $className);
-        $fileName = str_random() . "." . $file->getClientOriginalExtension();
-        $path = public_path("/img/$className/");
-        $file->move($path, $fileName);
-        return "/img/$className/" . $fileName;
-    }
-
-    public function deleteExistImage($content, $var)
-    {
-        $field = json_decode($content, true);
-        if(!empty($field[$var]) && file_exists(public_path() . $field[$var])) {
-            unlink(public_path() . $field[$var]);
-        }
-    }
-
-    public function deleteImage(string $path)
-    {
-        $imagePath = public_path($path);
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-            return true;
+        $password = request()->getHost();
+        $uploadPath = $this->createPath($folder, "file");
+        $zipName = Str::random(10). "." . "zip";
+        $savedFiles = [];
+        // dd($files);
+        foreach($files as $file){
+            $fileName = Str::random(10).  "." . $file->getClientOriginalExtension();
+            $path = public_path($uploadPath);
+            $file->move($path, $fileName);
+            $savedFiles[]  = $uploadPath . $fileName;
         }
 
-        return false;
-    }
+        $zip = new ZipArchive();
 
-    /**
-     * Delete images of object
-     *
-     * @param array $images
-     * @param Object $classImg
-     * @return bool
-     */
-    public function deleteImagesObj($images, $classImg)
-    {
-        foreach ($images as $img) {
-            $imagePath = public_path($img->image);
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+        if ($zip->open(public_path($uploadPath . $zipName), ZipArchive::CREATE) === TRUE)
+        {
+            $zip->setPassword($password);
+            $files = File::files($path);
+
+            foreach ($files as $key => $value) {
+                $relativeNameInZipFile = basename($value);
+                $zip->addFile($value, $relativeNameInZipFile);
+                $zip->setEncryptionName($relativeNameInZipFile, ZipArchive::EM_AES_256);
             }
-            $currentImg = $classImg::find($img->id);
-            $currentImg->delete();
-            return true;
+
+            $zip->close();
+
+            foreach($savedFiles as $savedFile){
+                unlink(public_path(ltrim($savedFile, "/")));
+            }
+            return $uploadPath . $zipName;
         }
-    	return false;
+        return false;
+
     }
+
+
 }
 
 

@@ -17,15 +17,14 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->group(function (
     Route::resource('products', 'ProductController');
     Route::patch('products/add-to-home/{product}', 'ProductController@updateAddToHome')->name('products.home.update');
     Route::patch('products/position/{product}', 'ProductController@updatePosition')->name('products.position.update');
+    Route::patch('products/delete/image/{product}', 'ProductController@deleteImage')->name('products.delete.iamge');
     Route::resource('categories', 'CategoryController');
 });
 
 Route::namespace('Front')->group(function(){
     Route::get('/', 'HomeController@home')->name('home');
+    Route::get('/items/{product}', 'HomeController@show')->name('item.show');
 });
-// Route::get('/csrf', function () {
-//     return csrf_token();
-// });
 
 // User Authentications
 Auth::routes(['verify' => true]);

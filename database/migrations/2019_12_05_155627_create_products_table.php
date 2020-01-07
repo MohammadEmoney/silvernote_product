@@ -18,11 +18,14 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->string('short_description');
             $table->text('description')->nullable();
-            $table->float('price', 8,2)->nullable();
+            $table->bigInteger('price')->nullable();
             $table->integer('discount')->nullable();
             $table->string('image')->nullable();
+            $table->string('file')->nullable();
+            $table->string('bg_img')->nullable();
             $table->text('gallery')->nullable();
             $table->boolean('add_to_home')->default(0);
+            $table->integer('position')->default(1);
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')
                     ->references('id')

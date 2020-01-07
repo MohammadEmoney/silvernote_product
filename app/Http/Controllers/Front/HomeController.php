@@ -15,4 +15,9 @@ class HomeController extends Controller
         // dd($products);
         return view('front.home', compact('products'));
     }
+
+    public function show(Product $product)
+    {
+        return view('front.blog.single', compact('product'));
+    }
 }

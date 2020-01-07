@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $fillable = [
-        'title', 'short_description', 'description', 'image', 'price' ,'discount', 'gallery', 'add_to_home', 'position', 'category_id', 'user_id', 'is_on_sale', 'data'
+        'title', 'short_description', 'description', 'image', 'file', 'bg_img', 'price' ,'discount', 'gallery', 'add_to_home', 'position', 'category_id', 'user_id', 'is_on_sale', 'data'
     ];
 
     public function user()
@@ -32,5 +32,18 @@ class Product extends Model
     public static function homeProducts()
     {
         return self::where('add_to_home', true)->orderBy('position', 'DESC')->get();
+    }
+
+    /**
+     * Calculate the discount of price
+     *
+     * @param int $price
+     * @param int $discount
+     *
+     * @return int
+     */
+    public function getDiscount($price , $discount)
+    {
+        return ($price * $discount) / 100;
     }
 }

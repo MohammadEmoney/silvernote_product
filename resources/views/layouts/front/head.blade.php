@@ -1,26 +1,20 @@
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>@yield('title', 'Corazon PSD')</title>
+
+<meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<link rel="shortcut icon" href="{{ asset('front/favicon.jpg') }}">
 
-<title>@yield('title', 'SilverNote')</title>
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/bootstrap-theme.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/fontAwesome.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/light-box.css') }}">
+<link rel="stylesheet" href="{{ asset('front/vendors/lightslider/dist/css/lightslider.min.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/templatemo-style.css') }}">
+<link rel="stylesheet" href="{{ asset('front/css/custom.css') }}">
 
-<link rel="icon" href="{{ asset('front/img/fav.png') }}" type="image/x-icon">
+{{-- <link href="https://fonts.googleapis.com/css?family=Kanit:100,200,300,400,500,600,700,800,900" rel="stylesheet"> --}}
+<link href="https://fonts.googleapis.com/css?family=Gelasio&display=swap" rel="stylesheet">
 
-<!-- Bootstrap -->
-<link href="{{ asset('front/css/bootstrap.min.css') }}" rel="stylesheet">
-<link href="{{ asset('front/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-
-<!-- main css -->
-<link href="{{ asset('front/css/style.css') }}" rel="stylesheet">
-
-
-<!-- modernizr -->
-<script src="{{ asset('front/js/modernizr.js') }}"></script>
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<script src="{{ asset('front/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js') }}"></script>

@@ -81,3 +81,33 @@ input:checked + .slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.del-btn {
+    display: none;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    margin-right: -50%;
+    top: 50%;
+    left: 50%;
+}
+
+.edit-gallery .img-thumbnail {
+    opacity: 1;
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: .6s ease;
+    backface-visibility: hidden;
+}
+
+.edit-gallery:hover .img-thumbnail {
+    opacity: 0.23;
+}
+
+.edit-gallery:hover .del-btn {
+    opacity: 1;
+}
+
+.edit-gallery:hover .del-btn{
+    display: block;
+}

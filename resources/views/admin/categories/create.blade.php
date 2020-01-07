@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="category">Category</label>
-                <select class="form-control" name="parent_category" id="category">
+                <select class="form-control" name="parent_id" id="category">
                     <option value="">Select a category</option>
                     @foreach($categories as $cat)
                         <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -34,10 +34,11 @@
                 <label>Image</label>
                 <input type="file" name="image" class="file-upload-default">
                 <div class="input-group col-xs-12">
-                <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image">
-                <span class="input-group-append">
-                    <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
-                </span>
+                    <input type="text" class="form-control file-upload-info" disabled placeholder="Upload Image" id="imgInp" >
+                    <span class="input-group-append">
+                        <button class="file-upload-browse btn btn-primary" type="button">Upload</button>
+                    </span>
+                    <img src="" alt="" id="image-output">
                 </div>
             </div>
             <div class="form-group">
@@ -50,4 +51,24 @@
       </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                $('#image-output').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#imgInp").change(function() {
+            readURL(this);
+        });
+    </script>
 @endsection

@@ -1,0 +1,5 @@
+.password-field p span{
+    background: darkred;
+    padding: 0.25em 0.75em;
+    border-radius: 1em;
+}
