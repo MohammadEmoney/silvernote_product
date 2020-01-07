@@ -19,6 +19,8 @@ Route::middleware('auth')->namespace('Admin')->prefix('admin')->group(function (
     Route::patch('products/position/{product}', 'ProductController@updatePosition')->name('products.position.update');
     Route::patch('products/delete/image/{product}', 'ProductController@deleteImage')->name('products.delete.iamge');
     Route::resource('categories', 'CategoryController');
+    Route::resource('tags', 'TagController');
+    Route::resource('articles', 'ArticleController');
 });
 
 Route::namespace('Front')->group(function(){
